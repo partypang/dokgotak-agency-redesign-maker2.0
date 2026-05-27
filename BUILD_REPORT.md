@@ -30,3 +30,12 @@ npm run build
 ## 잠금파일 메모
 
 `pdfjs-dist 5.6.205`의 npm 배포 integrity 값이 현재 registry 값과 맞도록 `package-lock.json`을 정리했습니다. 이 수정 후 `npm ci --ignore-scripts`, `npm run lint`, `npm run build`를 다시 통과했습니다.
+
+## 2026-05-27 Vercel 배포 실패 수정
+
+Vercel 설치 단계에서 `package-lock.json`의 일부 `resolved` URL이 내부 OpenAI 패키지 레지스트리로 고정되어 `ETIMEDOUT`가 발생했습니다.
+
+수정 사항:
+- `package-lock.json` 내부 `packages.applied-caas-gateway1.internal.api.openai.org` tarball URL을 `https://registry.npmjs.org/` 기준으로 교체했습니다.
+- 루트 `.npmrc`를 추가해 Vercel/로컬 설치 시 public npm registry를 명시했습니다.
+
